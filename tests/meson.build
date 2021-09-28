@@ -1,5 +1,7 @@
+if get_option('tests')
+
 test_sources = [
-    'VampTests.vala'
+    'UnitTests.vala'
 ]
 
 test_executable = executable('vamp-tests', test_sources,
@@ -7,3 +9,5 @@ test_executable = executable('vamp-tests', test_sources,
 )
 
 test('vamp-tests', test_executable)
+
+endif
