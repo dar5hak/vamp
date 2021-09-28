@@ -9,3 +9,7 @@ dependencies = [
 add_project_arguments(['--enable-experimental'], language: 'vala')
 
 subdir('src')
+
+if get_option('tests')
+  subdir('tests')
+endif
