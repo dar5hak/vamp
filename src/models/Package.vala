@@ -38,7 +38,7 @@ class Vamp.Package : Object, Json.Serializable {
                 }
 
                 @value = string_list_from_json (property_node);
-                
+
                 return true;
 
             case "bugs":
@@ -52,7 +52,7 @@ class Vamp.Package : Object, Json.Serializable {
                 };
 
                 return true;
-            
+
             case "author":
                 if (property_node.get_node_type () == OBJECT) {
                     @value = Person.from_json (property_node);
@@ -65,7 +65,7 @@ class Vamp.Package : Object, Json.Serializable {
 
                 var regex = /^(.*)(?:\s)(<.*>)(?:\s)(\(.*\))/;
                 MatchInfo info;
-                
+
                 if (regex.match (property_node.get_string (), 0, out info)) {
                     @value = new Person () {
                         name = info.fetch (1),
@@ -158,7 +158,7 @@ Gee.List<string> string_list_from_json (Json.Node node) {
             return;
         }
 
-        result.add(element_node.get_string ());
+        result.add (element_node.get_string ());
     });
 
     return result;
