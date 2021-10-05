@@ -60,23 +60,11 @@ class Vamp.Package : Object, Json.Serializable {
                 }
 
                 if (property_node.get_value_type () != Type.STRING) {
+                    @value = {};
                     return false;
                 }
 
-                var regex = /^(.*)(?:\s)(<.*>)(?:\s)(\(.*\))/; // vala-lint=space-before-paren
-                MatchInfo info;
-
-                if (regex.match (property_node.get_string (), 0, out info)) {
-                    @value = new Person () {
-                        name = info.fetch (1),
-                        email = info.fetch (2),
-                        url = info.fetch (3),
-                    };
-
-                    return true;
-                }
-
-                return false;
+                return Person.try_parse (property_node.get_string (), out @value);
 
             default:
                 return default_deserialize_property (
@@ -119,6 +107,8 @@ class Vamp.FundingInfo : Object {
 }
 
 class Vamp.Person : Object {
+    private static Regex regex = /^(.*)(?:\s)(<.*>)(?:\s)(\(.*\))/; // vala-lint=space-before-paren
+
     public string name { get; set; }
     public string email { get; set; }
     public string url { get; set; }
@@ -126,6 +116,23 @@ class Vamp.Person : Object {
     public static Person from_json (Json.Node node) {
         assert (node.get_node_type () == OBJECT);
         return (Person) Json.gobject_deserialize (typeof (Person), node);
+    }
+
+    public static bool try_parse (string str, out Person result) {
+        MatchInfo info;
+
+        if (!Person.regex.match (str, 0, out info)) {
+            result = null;
+            return false;
+        }
+
+        result = new Person () {
+            name = info.fetch (1),
+            email = info.fetch (2),
+            url = info.fetch (3),
+        };
+
+        return true;
     }
 
     public Json.Node to_json () {
