@@ -63,7 +63,7 @@ class Vamp.Package : Object, Json.Serializable {
                     return false;
                 }
 
-                var regex = /^(.*)(?:\s)(<.*>)(?:\s)(\(.*\))/;
+                var regex = /^(.*)(?:\s)(<.*>)(?:\s)(\(.*\))/; // vala-lint=space-before-paren
                 MatchInfo info;
 
                 if (regex.match (property_node.get_string (), 0, out info)) {
