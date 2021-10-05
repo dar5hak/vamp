@@ -1,8 +1,9 @@
 sources = [
-  'main.vala'
+    'models/Package.vala',
+    'main.vala',
 ]
 
-executable('vamp',
-  sources,
-  dependencies: dependencies,
-  install: true)
+executable('vamp', sources,
+    dependencies: dependencies,
+    install: true,
+)
