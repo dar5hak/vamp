@@ -47,7 +47,7 @@ class Vamp.Package : Object, Json.Serializable {
                     return true;
                 }
 
-                if (property_node.get_value_type () == Type.STRING) {
+                if (property_node.get_value_type () != Type.STRING) {
                     @value = {};
                     return false;
                 }
