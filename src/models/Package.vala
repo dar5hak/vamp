@@ -70,6 +70,55 @@ class Vamp.Package : Object, Json.Serializable {
                 }
 
                 return Person.try_parse (property_node.get_string (), out @value);
+            
+            case "contributors":
+                if (property_node.get_node_type () != ARRAY) {
+                    @value = {};
+                    return false;
+                }
+
+                @value = Person.list_from_json (property_node);
+
+                return true;
+
+            case "funding":
+                if (property_node.get_node_type () != ARRAY) {
+                    @value = {};
+                    return false;
+                }
+
+                @value = FundingInfo.list_from_json (property_node);
+
+                return true;
+            
+            case "files":
+                if (property_node.get_node_type () != ARRAY) {
+                    @value = {};
+                    return false;
+                }
+
+                @value = string_list_from_json (property_node);
+
+                return true;
+            
+            case "repository":
+                if (property_node.get_node_type () != OBJECT) {
+                    @value = {};
+                    return false;
+                }
+
+                @value = Repository.from_json (property_node);
+
+                return false;
+
+            case "dependencies":
+                return true;
+            
+            case "dev-dependencies":
+                return true;
+            
+            case "optional-dependencies":
+                return true;
 
             default:
                 return default_deserialize_property (
@@ -106,6 +155,23 @@ class Vamp.FundingInfo : Object {
         return (FundingInfo) Json.gobject_deserialize (typeof (FundingInfo), node);
     }
 
+    public static Gee.List<FundingInfo> list_from_json (Json.Node node) {
+        assert (node.get_node_type () == ARRAY);
+        
+        var array = node.get_array ();
+        var result = new Gee.ArrayList<FundingInfo> ();
+
+        array.foreach_element ((_, __, element_node) => {
+            if (element_node.get_node_type () != OBJECT) {
+                return;
+            }
+
+            result.add (FundingInfo.from_json (element_node));
+        });
+
+        return result;
+    }
+
     public Json.Node to_json () {
         return Json.gobject_serialize (this);
     }
@@ -121,6 +187,23 @@ class Vamp.Person : Object {
     public static Person from_json (Json.Node node) {
         assert (node.get_node_type () == OBJECT);
         return (Person) Json.gobject_deserialize (typeof (Person), node);
+    }
+
+    public static Gee.List<Person> list_from_json (Json.Node node) {
+        assert (node.get_node_type () == ARRAY);
+
+        var array = node.get_array ();
+        var result = new Gee.ArrayList<Person> ();
+
+        array.foreach_element ((_, __, element_node) => {
+            if (element_node.get_node_type () != OBJECT) {
+                return;
+            }
+
+            result.add (Person.from_json (element_node));
+        });
+
+        return result;
     }
 
     public static bool try_parse (string str, out Person result) {
