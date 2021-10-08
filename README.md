@@ -9,3 +9,24 @@
 
 - Fetch and install Vala dependencies from Git URLs
 - Integrate with Meson and Flatpak
+
+## Building and running with Docker
+
+You will have to build the containers for each modification. The first time you
+launch this command will take a little, so go and grab some coffee.
+
+```bash
+docker-compose build
+```
+
+After that, you can run the application:
+
+```bash
+docker-compose run vamp
+```
+
+And the tests:
+
+```bash
+docker-compose run tests
+```

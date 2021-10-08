@@ -1,0 +1,26 @@
+services:
+  build-environment-dev:
+    build: 
+      context: .
+      dockerfile: docker/build-environment/Dockerfile
+      args:
+        build_args: -Dtests=true
+    image: vala-vamp/build-dev
+
+  build-environment-release:
+    build: 
+      context: .
+      dockerfile: docker/build-environment/Dockerfile
+    image: vala-vamp/build-release
+
+  test:
+    build:
+      context: .
+      dockerfile: docker/test/Dockerfile
+    image: vala-vamp/tests
+
+  vamp:
+    build:
+      context: .
+      dockerfile: docker/vamp/Dockerfile
+    image: vala-vamp/vamp
