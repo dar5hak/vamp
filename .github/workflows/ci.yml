@@ -27,7 +27,7 @@ jobs:
         run: io.elementary.vala-lint -d .
 
   test:
-    name: Run tests
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
