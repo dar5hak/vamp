@@ -8,6 +8,7 @@ configure_file (
 )
 confht = configuration_data()
 confht.set_quoted ('TEST_PACKAGE_FILE', meson.current_source_dir() / 'vamp.json')
+confht.set_quoted ('FULL_TEST_PACKAGE_FILE', meson.current_source_dir() / 'full-vamp.json')
 configure_file(output : 'config.h',
     configuration : confht)
 
@@ -25,6 +26,10 @@ test_dependencies = [
     vamp_dep,
 ]
 
+file_test_sources = [
+    'FileTests.vala'
+]
+
 foreach dep : dependencies
     test_dependencies += dep
 endforeach
@@ -33,12 +38,12 @@ test_executable = executable('vamp-tests', test_sources,
     dependencies: test_dependencies
 )
 
-file_test_executable = executable('file-test', 'FileTest.vala',
+file_test_executable = executable('file-test', file_test_sources,
     dependencies: test_dependencies,
     vala_args: vala_args,
 )
 
 test('vamp-tests', test_executable)
-test('file-test', file_test_executable)
+test('file-tests', file_test_executable)
 
 endif
