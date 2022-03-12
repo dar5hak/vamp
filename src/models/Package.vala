@@ -260,7 +260,7 @@ Gee.List<string> string_list_from_json (Json.Node node) {
     var result = new Gee.ArrayList<string> ();
 
     array.foreach_element ((_, __, element_node) => {
-        if (element_node.get_value_type () == Type.STRING) {
+        if (element_node.get_value_type () != Type.STRING) {
             return;
         }
 
