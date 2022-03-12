@@ -1,4 +1,4 @@
-class Vamp.Package : Object, Json.Serializable {
+public class Vamp.Package : Object, Json.Serializable {
     public string name { get; set; }
     public string version { get; set; }
     public string description { get; set; }
@@ -70,7 +70,7 @@ class Vamp.Package : Object, Json.Serializable {
                 }
 
                 return Person.try_parse (property_node.get_string (), out @value);
-            
+
             case "contributors":
                 if (property_node.get_node_type () != ARRAY) {
                     @value = {};
@@ -90,7 +90,7 @@ class Vamp.Package : Object, Json.Serializable {
                 @value = FundingInfo.list_from_json (property_node);
 
                 return true;
-            
+
             case "files":
                 if (property_node.get_node_type () != ARRAY) {
                     @value = {};
@@ -100,7 +100,7 @@ class Vamp.Package : Object, Json.Serializable {
                 @value = string_list_from_json (property_node);
 
                 return true;
-            
+
             case "repository":
                 if (property_node.get_node_type () != OBJECT) {
                     @value = {};
@@ -113,10 +113,10 @@ class Vamp.Package : Object, Json.Serializable {
 
             case "dependencies":
                 return true;
-            
+
             case "dev-dependencies":
                 return true;
-            
+
             case "optional-dependencies":
                 return true;
 
@@ -131,7 +131,7 @@ class Vamp.Package : Object, Json.Serializable {
     }
 }
 
-class Vamp.Repository : Object {
+public class Vamp.Repository : Object {
     public string respository_type { get; set; }
     public string url { get; set; }
     public string directory { get; set; }
@@ -146,7 +146,7 @@ class Vamp.Repository : Object {
     }
 }
 
-class Vamp.FundingInfo : Object {
+public class Vamp.FundingInfo : Object {
     public string funding_type { get; set; }
     public string url { get; set; }
 
@@ -157,7 +157,7 @@ class Vamp.FundingInfo : Object {
 
     public static Gee.List<FundingInfo> list_from_json (Json.Node node) {
         assert (node.get_node_type () == ARRAY);
-        
+
         var array = node.get_array ();
         var result = new Gee.ArrayList<FundingInfo> ();
 
@@ -177,7 +177,7 @@ class Vamp.FundingInfo : Object {
     }
 }
 
-class Vamp.Person : Object {
+public class Vamp.Person : Object {
     private static Regex regex = /^(.*)(?:\s)(<.*>)(?:\s)(\(.*\))/; // vala-lint=space-before-paren
 
     public string name { get; set; }
@@ -228,7 +228,7 @@ class Vamp.Person : Object {
     }
 }
 
-class Vamp.Bugs : Object {
+public class Vamp.Bugs : Object {
     public string url { get; set; }
     public string email { get; set; }
 
