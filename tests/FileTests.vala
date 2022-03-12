@@ -32,6 +32,9 @@ namespace Vamp {
                     Test.message ("Package name: %s\n", package.name);
                     Test.message ("Package version: %s\n", package.version);
                     Test.message ("Package description: %s\n", package.description);
+                    Test.message ("Package dependencies: %s\n", package.dependencies["json-glib"]);
+                    Test.message ("Package developer dependencies: %s\n", package.dev_dependencies["g-ir-compiler"]);
+                    Test.message ("Package optional dependencies: %s\n", package.optional_dependencies["valadoc"]);
                 } catch (FileError e) {
                     error (e.message);
                 }
