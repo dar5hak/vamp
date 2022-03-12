@@ -132,7 +132,7 @@ class Vamp.Package : Object, Json.Serializable {
 }
 
 class Vamp.Repository : Object {
-    public string type { get; set; }
+    public string respository_type { get; set; }
     public string url { get; set; }
     public string directory { get; set; }
 
@@ -147,7 +147,7 @@ class Vamp.Repository : Object {
 }
 
 class Vamp.FundingInfo : Object {
-    public string type { get; set; }
+    public string funding_type { get; set; }
     public string url { get; set; }
 
     public static FundingInfo from_json (Json.Node node) {

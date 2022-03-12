@@ -1,0 +1,5 @@
+[CCode (cheader_filename = "config.h")]
+namespace TestConfig {
+	[CCode (cname = "TEST_PACKAGE_FILE")]
+	public const string TEST_PACKAGE_FILE;
+}
