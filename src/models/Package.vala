@@ -112,12 +112,21 @@ public class Vamp.Package : Object, Json.Serializable {
                 return false;
 
             case "dependencies":
-                return true;
-
             case "dev-dependencies":
-                return true;
-
             case "optional-dependencies":
+                if (property_node.get_node_type () != OBJECT) {
+                    @value = {};
+                    return false;
+                }
+
+                var result = new Gee.HashMap<string, string> ();
+
+                property_node.get_object ().foreach_member ((obj, member_name, member_node) => {
+                    result.set (member_name, member_node.get_string ());
+                });
+
+                @value = result;
+
                 return true;
 
             default:
@@ -129,6 +138,8 @@ public class Vamp.Package : Object, Json.Serializable {
                 );
         }
     }
+
+    // TODO: Add "serialize_property" method
 }
 
 public class Vamp.Repository : Object {

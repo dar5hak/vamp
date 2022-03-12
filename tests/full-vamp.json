@@ -36,6 +36,10 @@
         "./main-module/**/*",
         "./extra-module/**/*"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://www.notgithub.com/owner/project"
+    },
     "dependencies": {
         "json-glib": "^1.6.0"
     },
