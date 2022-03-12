@@ -9,3 +9,8 @@
 
 - Fetch and install Vala dependencies from Git URLs
 - Integrate with Meson and Flatpak
+
+## vamp.json spec inspirations
+
+- npm: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
+- drakkar: https://github.com/valum-framework/drakkar
