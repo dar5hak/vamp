@@ -1,0 +1,48 @@
+{
+    "name": "test-project",
+    "version": "0.0.1",
+    "description": "A Test Project",
+    "keywords": ["test", "project", "fake", "mock"],
+    "homepage": "https://wwww.test.com",
+    "bugs": {
+        "url": "https://www.notgithub.com/owner/project/issues",
+        "email": "bugs@test.com"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "vamp-dev",
+        "email": "vamp-dev@vamp.org",
+        "url": "https://vamp-dev.com"
+    },
+    "contributors": [
+        {
+            "name": "vamp-dev-2",
+            "email": "vamp-dev-2@vamp.org",
+            "url": "https://vamp-dev-2.com"
+        },
+        {
+            "name": "vamp-dev-3",
+            "email": "vamp-dev-3@vamp.org",
+            "url": "https://vamp-dev-3.com"
+        }
+    ],
+    "funding": [
+        {
+            "type": "individual",
+            "url": "https://www.vamp.com/donate"
+        }
+    ],
+    "files": [
+        "./main-module/**/*",
+        "./extra-module/**/*"
+    ],
+    "dependencies": {
+        "json-glib": "^1.6.0"
+    },
+    "dev_dependencies": {
+        "g-ir-compiler": "^1.6.0"
+    },
+    "optional_dependencies": {
+        "valadoc": "^0.48.0"
+    }
+}
