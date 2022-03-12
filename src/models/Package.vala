@@ -119,13 +119,7 @@ public class Vamp.Package : Object, Json.Serializable {
                     return false;
                 }
 
-                var result = new Gee.HashMap<string, string> ();
-
-                property_node.get_object ().foreach_member ((obj, member_name, member_node) => {
-                    result.set (member_name, member_node.get_string ());
-                });
-
-                @value = result;
+                @value = string_map_from_json (property_node);
 
                 return true;
 
@@ -143,7 +137,7 @@ public class Vamp.Package : Object, Json.Serializable {
 }
 
 public class Vamp.Repository : Object {
-    public string respository_type { get; set; }
+    public string repository_type { get; set; }
     public string url { get; set; }
     public string directory { get; set; }
 
@@ -154,6 +148,12 @@ public class Vamp.Repository : Object {
 
     public Json.Node to_json () {
         return Json.gobject_serialize (this);
+    }
+
+    public bool equals (Vamp.Repository other) {
+        return this.repository_type == other.repository_type
+            && this.url == other.url
+            && this.directory == other.directory;
     }
 }
 
@@ -185,6 +185,11 @@ public class Vamp.FundingInfo : Object {
 
     public Json.Node to_json () {
         return Json.gobject_serialize (this);
+    }
+
+    public bool equals (Vamp.FundingInfo other) {
+        return this.funding_type == other.funding_type
+            && this.url == other.url;
     }
 }
 
@@ -237,6 +242,12 @@ public class Vamp.Person : Object {
     public Json.Node to_json () {
         return Json.gobject_serialize (this);
     }
+
+    public bool equals (Vamp.Person other) {
+        return this.name == other.name
+            && this.email == other.email
+            && this.url == other.url;
+    }
 }
 
 public class Vamp.Bugs : Object {
@@ -250,6 +261,11 @@ public class Vamp.Bugs : Object {
 
     public Json.Node to_json () {
         return Json.gobject_serialize (this);
+    }
+
+    public bool equals (Vamp.Bugs other) {
+        return this.url == other.url
+            && this.email == other.email;
     }
 }
 
@@ -265,6 +281,18 @@ Gee.List<string> string_list_from_json (Json.Node node) {
         }
 
         result.add (element_node.get_string ());
+    });
+
+    return result;
+}
+
+Gee.Map<string, string> string_map_from_json (Json.Node node) {
+    assert (node.get_node_type () == OBJECT);
+
+    var result = new Gee.HashMap<string, string> ();
+
+    node.get_object ().foreach_member ((obj, member_name, member_node) => {
+        result.set (member_name, member_node.get_string ());
     });
 
     return result;
