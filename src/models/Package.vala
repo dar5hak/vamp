@@ -140,16 +140,37 @@ public class Vamp.Package : Object, Json.Serializable {
     ) {
         switch (property_name) {
             case "keywords":
-                Test.message ("Value type: %s", value_to_serialize.type_name ());
-                var converted_value = (Gee.List<string>)value_to_serialize.get_object ();
+            case "files":
+                Gee.List<string> converted_value = (Gee.List<string>)value_to_serialize.get_object ();
                 if (converted_value == null) {
-                    var blank_array_node = new Json.Node (Json.NodeType.ARRAY);
-                    blank_array_node.set_array (new Json.Array ());
                     return null;
                 }
 
-                Test.message ("Converted value size: %d", converted_value.size);
                 return string_list_to_json (converted_value);
+            case "contributors":
+                Gee.List<Person> converted_value = (Gee.List<Person>)value_to_serialize.get_object ();
+                if (converted_value == null) {
+                    return null;
+                }
+
+                return Person.list_to_json (converted_value);
+
+            case "funding":
+                Gee.List<FundingInfo> converted_value = (Gee.List<FundingInfo>)value_to_serialize.get_object ();
+                if (converted_value == null) {
+                    return null;
+                }
+
+                return FundingInfo.list_to_json (converted_value);
+
+            case "repository":
+                Vamp.Repository converted_value = (Vamp.Repository)value_to_serialize.get_object ();
+
+                if (converted_value == null) {
+                    return null;
+                }
+
+                return converted_value.to_json ();
             default:
                 return default_serialize_property (
                     property_name,
@@ -185,7 +206,21 @@ public class Vamp.Repository : Object {
     }
 
     public Json.Node to_json () {
-        return Json.gobject_serialize (this);
+        var obj = new Json.Object ();
+
+
+        if (this.repository_type != null) {
+            obj.set_string_member ("type", this.repository_type);
+        }
+
+        if (this.url != null) {
+            obj.set_string_member ("url", this.url);
+        }
+
+        var result = new Json.Node (Json.NodeType.OBJECT);
+        result.set_object (obj);
+
+        return result;
     }
 
     public bool equals (Vamp.Repository other) {
@@ -235,8 +270,33 @@ public class Vamp.FundingInfo : Object {
         return result;
     }
 
+    public static Json.Node list_to_json (Gee.List<FundingInfo> list) {
+        var node_array = new Json.Array.sized (list.size);
+
+        list.foreach ((element) => {
+            node_array.add_element (element.to_json ());
+            return true;
+        });
+
+        var node = new Json.Node (Json.NodeType.ARRAY);
+        node.set_array (node_array);
+        return node;
+    }
+
     public Json.Node to_json () {
-        return Json.gobject_serialize (this);
+        var obj = new Json.Object ();
+        if (this.funding_type != null) {
+            obj.set_string_member ("type", this.funding_type);
+        }
+
+        if (this.url != null) {
+            obj.set_string_member ("url", this.url);
+        }
+
+        var result = new Json.Node (Json.NodeType.OBJECT);
+        result.set_object (obj);
+
+        return result;
     }
 
     public bool equals (Vamp.FundingInfo other) {
@@ -245,6 +305,7 @@ public class Vamp.FundingInfo : Object {
     }
 }
 
+// TODO: Split public classes into their own files
 public class Vamp.Person : Object {
     private static Regex regex = /^(.*)(?:\s)(<.*>)(?:\s)(\(.*\))/; // vala-lint=space-before-paren
 
@@ -272,6 +333,21 @@ public class Vamp.Person : Object {
         });
 
         return result;
+
+
+    }
+
+    public static Json.Node list_to_json (Gee.List<Person> list) {
+        var node_array = new Json.Array.sized (list.size);
+
+        list.foreach ((element) => {
+            node_array.add_element (element.to_json ());
+            return true;
+        });
+
+        var node = new Json.Node (Json.NodeType.ARRAY);
+        node.set_array (node_array);
+        return node;
     }
 
     public static bool try_parse (string str, out Person result) {
