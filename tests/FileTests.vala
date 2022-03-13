@@ -37,7 +37,7 @@ namespace Vamp {
 
                     // We assert objects this way so that:
                     // 1. We know the exact value of each object property
-                    // 2. We can easily update our asserts as we change the
+                    // 2. We can easily update our asserts as we update the
                     // object's properties.
                     assert_full_config_bugs (package.bugs);
                     assert_cmpstr (package.license, GLib.CompareOperator.EQ, "MIT");
@@ -46,16 +46,27 @@ namespace Vamp {
                     assert_full_config_funding (package.funding);
                     assert_cmpstrv (package.files.to_array (), { "./main-module/**/*", "./extra-module/**/*"});
                     assert_full_config_respository (package.repository);
-
-                    Test.message ("Package dependencies: %s\n", package.dependencies["json-glib"]);
-                    Test.message ("Package developer dependencies: %s\n", package.dev_dependencies["g-ir-compiler"]);
-                    Test.message ("Package optional dependencies: %s\n", package.optional_dependencies["valadoc"]);
+                    assert_full_config_dependencies (package.dependencies);
+                    assert_full_config_dev_dependencies (package.dev_dependencies);
+                    assert_full_config_optional_dependencies (package.optional_dependencies);
                 } catch (FileError e) {
                     error (e.message);
                 }
             });
 
             return Test.run ();
+        }
+
+        private static void assert_full_config_optional_dependencies (Gee.Map<string, string> dependencies) {
+            assert_cmpstr (dependencies["valadoc"], GLib.CompareOperator.EQ, "^0.48.0");
+        }
+
+        private static void assert_full_config_dev_dependencies (Gee.Map<string, string> dependencies) {
+            assert_cmpstr (dependencies["g-ir-compiler"], GLib.CompareOperator.EQ, "^1.6.0");
+        }
+
+        private static void assert_full_config_dependencies (Gee.Map<string, string> dependencies) {
+            assert_cmpstr (dependencies["json-glib"], GLib.CompareOperator.EQ, "^1.6.0");
         }
 
         private static void assert_full_config_respository (Vamp.Repository repository) {
