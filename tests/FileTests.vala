@@ -44,6 +44,8 @@ namespace Vamp {
                     assert_full_config_author (package.author);
                     assert_full_config_contributors (package.contributors);
                     assert_full_config_funding (package.funding);
+                    assert_cmpstrv (package.files.to_array (), { "./main-module/**/*", "./extra-module/**/*"});
+                    assert_full_config_respository (package.repository);
 
                     Test.message ("Package dependencies: %s\n", package.dependencies["json-glib"]);
                     Test.message ("Package developer dependencies: %s\n", package.dev_dependencies["g-ir-compiler"]);
@@ -54,6 +56,11 @@ namespace Vamp {
             });
 
             return Test.run ();
+        }
+
+        private static void assert_full_config_respository (Vamp.Repository repository) {
+            assert_cmpstr (repository.repository_type, GLib.CompareOperator.EQ, "git");
+            assert_cmpstr (repository.url, GLib.CompareOperator.EQ, "https://www.notgithub.com/owner/project");
         }
 
         private static void assert_full_config_funding (Gee.List<FundingInfo> funding) {

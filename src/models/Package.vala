@@ -109,7 +109,7 @@ public class Vamp.Package : Object, Json.Serializable {
 
                 @value = Repository.from_json (property_node);
 
-                return false;
+                return true;
 
             case "dependencies":
             case "dev-dependencies":
