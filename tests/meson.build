@@ -7,8 +7,10 @@ configure_file (
     configuration: conft
 )
 confht = configuration_data()
-confht.set_quoted ('TEST_PACKAGE_FILE', meson.current_source_dir() / 'vamp.json')
-confht.set_quoted ('FULL_TEST_PACKAGE_FILE', meson.current_source_dir() / 'full-vamp.json')
+confht.set_quoted ('TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'vamp.json')
+confht.set_quoted ('FULL_TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'full-vamp.json')
+confht.set_quoted ('BASIC_EXPECTED_TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'expected-basic-vamp.json')
+confht.set_quoted ('FULL_EXPECTED_TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'expected-full-vamp.json')
 configure_file(output : 'config.h',
     configuration : confht)
 

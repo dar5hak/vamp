@@ -1,0 +1,55 @@
+{
+    "name" : "full-project",
+    "version" : "1.0.0",
+    "description" : "A full project",
+    "keywords" : [
+        "full",
+        "project"
+    ],
+    "homepage" : "https://www.full-project.com",
+    "bugs" : {
+        "url" : "https://www.full-project.com/bugs",
+        "email" : "bugs@full-project.com"
+    },
+    "license" : "MIT",
+    "author" : {
+        "name" : "vamp-dev",
+        "email" : "vamp-dev@vamp.org",
+        "url" : "https://www.vamp-dev.com"
+    },
+    "contributors" : [
+        {
+            "name" : "vamp-dev-2",
+            "email" : "vamp-dev-2@vamp.org",
+            "url" : "https://www.vamp-dev-2.com"
+        },
+        {
+            "name" : "vamp-dev-3",
+            "email" : "vamp-dev-3@vamp.org",
+            "url" : "https://www.vamp-dev-3.com"
+        }
+    ],
+    "funding" : [
+        {
+            "type" : "individual",
+            "url" : "https://www.vamp.com/donate"
+        }
+    ],
+    "files" : [
+        "./main-module/**/*",
+        "./extra-module/**/*"
+    ],
+    "repository" : {
+        "type" : "git",
+        "url" : "https://www.notgithub.com/owner/project"
+    },
+    "dependencies" : {
+        "json-glib" : "^1.0.0"
+    },
+    "dev-dependencies" : {
+        "g-ir-compiler" : "^1.2.0"
+    },
+    "optional-dependencies" : {
+        "valadoc" : "^0.56.0"
+    }
+}
