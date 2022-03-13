@@ -72,15 +72,49 @@ namespace Vamp {
                 package.name = "full-project";
                 package.version = "1.0.0";
                 package.description = "A full project";
-                var keywords = new Gee.ArrayList<string> ();
-                keywords.add_all_array ({"full", "project"});
-                package.keywords = keywords;
+                package.keywords = new Gee.ArrayList<string>.wrap ({"full", "project"});
                 package.homepage = "https://www.full-project.com";
                 package.bugs = new Bugs () {
                     url = "https://www.full-project.com/bugs",
                     email = "bugs@full-project.com"
                 };
 
+                package.license = "MIT";
+                package.author = new Person () {
+                    name = "vamp-dev",
+                    email = "vamp-dev@vamp.org",
+                    url = "https://www.vamp-dev.com"
+                };
+
+                package.contributors = new Gee.ArrayList<Person>.wrap ({
+                    new Person () {
+                        name = "vamp-dev-2",
+                        email = "vamp-dev-2@vamp.org",
+                        url = "https://www.vamp-dev-2.com"
+                    },
+                    new Person () {
+                        name = "vamp-dev-3",
+                        email = "vamp-dev-3@vamp.org",
+                        url = "https://www.vamp-dev-3.com"
+                    },
+                });
+
+                package.funding = new Gee.ArrayList<FundingInfo>.wrap ({
+                    new FundingInfo () {
+                        funding_type = "individual",
+                        url = "https://www.vamp.com/donate"
+                    }
+                });
+
+                package.files = new Gee.ArrayList<string>.wrap ({
+                    "./main-module/**/*",
+                    "./extra-module/**/*"
+                });
+
+                package.repository = new Repository () {
+                    repository_type = "git",
+                    url = "https://www.notgithub.com/owner/project"
+                };
 
                 var generator = new Json.Generator ();
                 generator.pretty = true;
