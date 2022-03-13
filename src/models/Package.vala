@@ -133,7 +133,31 @@ public class Vamp.Package : Object, Json.Serializable {
         }
     }
 
-    // TODO: Add "serialize_property" method
+    private Json.Node serialize_property (
+        string property_name,
+        Value value_to_serialize,
+        ParamSpec pspec
+    ) {
+        switch (property_name) {
+            case "keywords":
+                Test.message ("Value type: %s", value_to_serialize.type_name ());
+                var converted_value = (Gee.List<string>)value_to_serialize.get_object ();
+                if (converted_value == null) {
+                    var blank_array_node = new Json.Node (Json.NodeType.ARRAY);
+                    blank_array_node.set_array (new Json.Array ());
+                    return null;
+                }
+
+                Test.message ("Converted value size: %d", converted_value.size);
+                return string_list_to_json (converted_value);
+            default:
+                return default_serialize_property (
+                    property_name,
+                    value_to_serialize,
+                    pspec
+                );
+        }
+    }
 }
 
 public class Vamp.Repository : Object {
@@ -295,6 +319,18 @@ public class Vamp.Bugs : Object {
         return this.url == other.url
             && this.email == other.email;
     }
+}
+
+Json.Node string_list_to_json (Gee.List<string> list) {
+    var node_array = new Json.Array.sized (list.size);
+    list.foreach ((element) => {
+        node_array.add_string_element (element);
+        return true;
+    });
+
+    var node = new Json.Node (Json.NodeType.ARRAY);
+    node.set_array (node_array);
+    return node;
 }
 
 Gee.List<string> string_list_from_json (Json.Node node) {
