@@ -3,7 +3,7 @@ namespace Vamp {
         public static int main (string[] args) {
             Test.init (ref args);
 
-            Test.add_func ("/vamp/basic_config", () => {
+            Test.add_func ("/vamp/deserialize_basic_config", () => {
                 string package_contents;
                 try {
                     bool did_open = FileUtils.get_contents (TestConfig.TEST_PACKAGE_FILE, out package_contents);
@@ -20,7 +20,7 @@ namespace Vamp {
                 }
             });
 
-            Test.add_func ("/vamp/full_config", () => {
+            Test.add_func ("/vamp/deserialize_full_config", () => {
                 string package_contents;
                 try {
                     bool did_open = FileUtils.get_contents (TestConfig.FULL_TEST_PACKAGE_FILE, out package_contents);
@@ -52,6 +52,41 @@ namespace Vamp {
                 } catch (FileError e) {
                     error (e.message);
                 }
+            });
+
+            Test.add_func ("/vamp/serialize_basic_config", () => {
+                Vamp.Package package = new Vamp.Package ();
+                package.name = "basic-project";
+                package.version = "1.0.0";
+                package.description = "A basic project";
+
+                var generator = new Json.Generator ();
+                generator.pretty = true;
+                generator.indent = 4;
+                generator.set_root (package.to_json ());
+                Test.message ("Serialized basic config:\n%s", generator.to_data (null));
+            });
+
+            Test.add_func ("/vamp/serialize_full_config", () => {
+                Vamp.Package package = new Vamp.Package ();
+                package.name = "full-project";
+                package.version = "1.0.0";
+                package.description = "A full project";
+                var keywords = new Gee.ArrayList<string> ();
+                keywords.add_all_array ({"full", "project"});
+                package.keywords = keywords;
+                package.homepage = "https://www.full-project.com";
+                package.bugs = new Bugs () {
+                    url = "https://www.full-project.com/bugs",
+                    email = "bugs@full-project.com"
+                };
+
+
+                var generator = new Json.Generator ();
+                generator.pretty = true;
+                generator.indent = 4;
+                generator.set_root (package.to_json ());
+                Test.message ("Serialized full config:\n%s", generator.to_data (null));
             });
 
             return Test.run ();
