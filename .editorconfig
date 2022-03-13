@@ -14,7 +14,7 @@ tab_width = 4
 [{*.html,*.xml,*.xml.in,*.yml}]
 tab_width = 2
 
-# Ignore paths
+# Ignore test assets (These files need to remain unformatted)
 [/tests/assets/*]
 charset = unset
 end_of_line = unset
