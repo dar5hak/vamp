@@ -116,6 +116,18 @@ namespace Vamp {
                     url = "https://www.notgithub.com/owner/project"
                 };
 
+                var dependencies = new Gee.HashMap<string, string> ();
+                dependencies["json-glib"] = "^1.0.0";
+                package.dependencies = dependencies;
+
+                var dev_dependencies = new Gee.HashMap<string, string> ();
+                dev_dependencies["g-ir-compiler"] = "^1.2.0";
+                package.dev_dependencies = dev_dependencies;
+
+                var optional_dependencies = new Gee.HashMap<string, string> ();
+                optional_dependencies["valadoc"] = "^0.56.0";
+                package.optional_dependencies = optional_dependencies;
+
                 var generator = new Json.Generator ();
                 generator.pretty = true;
                 generator.indent = 4;
