@@ -171,6 +171,17 @@ public class Vamp.Package : Object, Json.Serializable {
                 }
 
                 return converted_value.to_json ();
+
+            case "dependencies":
+            case "dev-dependencies":
+            case "optional-dependencies":
+                Gee.Map<string, string> converted_value = (Gee.Map<string, string>)value_to_serialize.get_object ();
+
+                if (converted_value == null) {
+                    return null;
+                }
+
+                return string_map_to_json (converted_value);
             default:
                 return default_serialize_property (
                     property_name,
@@ -406,6 +417,7 @@ Json.Node string_list_to_json (Gee.List<string> list) {
 
     var node = new Json.Node (Json.NodeType.ARRAY);
     node.set_array (node_array);
+
     return node;
 }
 
@@ -424,6 +436,20 @@ Gee.List<string> string_list_from_json (Json.Node node) {
     });
 
     return result;
+}
+
+
+Json.Node string_map_to_json (Gee.Map<string, string> map) {
+    var node_object = new Json.Object ();
+    map.entries.foreach ((entry) => {
+        node_object.set_string_member (entry.key, entry.value);
+        return true;
+    });
+
+    var node = new Json.Node (Json.NodeType.OBJECT);
+    node.set_object (node_object);
+
+    return node;
 }
 
 Gee.Map<string, string> string_map_from_json (Json.Node node) {
