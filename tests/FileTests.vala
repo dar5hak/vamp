@@ -64,7 +64,22 @@ namespace Vamp {
                 generator.pretty = true;
                 generator.indent = 4;
                 generator.set_root (package.to_json ());
-                Test.message ("Serialized basic config:\n%s", generator.to_data (null));
+
+                try {
+                    string expected_content;
+                    bool did_open = FileUtils.get_contents (TestConfig.BASIC_EXPECTED_TEST_PACKAGE_FILE,
+                        out expected_content
+                    );
+
+                    if (!did_open) {
+                        error ("Failed to get contents from: %s".printf (TestConfig.BASIC_EXPECTED_TEST_PACKAGE_FILE));
+                    }
+
+                    assert_cmpstr (generator.to_data (null), CompareOperator.EQ, expected_content);
+
+                } catch (Error e) {
+                    error (e.message);
+                }
             });
 
             Test.add_func ("/vamp/serialize_full_config", () => {
@@ -132,7 +147,24 @@ namespace Vamp {
                 generator.pretty = true;
                 generator.indent = 4;
                 generator.set_root (package.to_json ());
+
                 Test.message ("Serialized full config:\n%s", generator.to_data (null));
+
+                try {
+                    string expected_content;
+                    bool did_open = FileUtils.get_contents (TestConfig.FULL_EXPECTED_TEST_PACKAGE_FILE,
+                        out expected_content
+                    );
+
+                    if (!did_open) {
+                        error ("Failed to get contents from: %s".printf (TestConfig.FULL_EXPECTED_TEST_PACKAGE_FILE));
+                    }
+
+                    assert_cmpstr (generator.to_data (null), CompareOperator.EQ, expected_content);
+
+                } catch (Error e) {
+                    error (e.message);
+                }
             });
 
             return Test.run ();

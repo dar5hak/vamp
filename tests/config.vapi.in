@@ -5,4 +5,10 @@ namespace TestConfig {
 
     [CCode (cname = "FULL_TEST_PACKAGE_FILE")]
     public const string FULL_TEST_PACKAGE_FILE;
+
+    [CCode (cname = "BASIC_EXPECTED_TEST_PACKAGE_FILE")]
+    public const string BASIC_EXPECTED_TEST_PACKAGE_FILE;
+
+    [CCode (cname = "FULL_EXPECTED_TEST_PACKAGE_FILE")]
+    public const string FULL_EXPECTED_TEST_PACKAGE_FILE;
 }

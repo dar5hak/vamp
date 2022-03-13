@@ -13,3 +13,12 @@ tab_width = 4
 # Markup files
 [{*.html,*.xml,*.xml.in,*.yml}]
 tab_width = 2
+
+# Ignore paths
+[/tests/assets/*]
+charset = unset
+end_of_line = unset
+indent_size = unset
+indent_style = unset
+insert_final_newline = unset
+tab_width = unset
