@@ -35,16 +35,14 @@ namespace Vamp {
                     assert_cmpstrv (package.keywords.to_array (), {"test", "project", "fake", "mock"});
                     assert_cmpstr (package.homepage, GLib.CompareOperator.EQ, "https://wwww.test.com");
 
-                    // Assert bugs
-                    assert_cmpstr (package.bugs.url, GLib.CompareOperator.EQ, "https://www.notgithub.com/owner/project/issues");
-                    assert_cmpstr (package.bugs.email, GLib.CompareOperator.EQ, "bugs@test.com");
-
+                    // We assert objects this way so that:
+                    // 1. We know the exact value of each object property
+                    // 2. We can easily update our asserts as we change the
+                    // object's properties.
+                    assert_full_config_bugs (package.bugs);
                     assert_cmpstr (package.license, GLib.CompareOperator.EQ, "MIT");
-
-                    // Assert author
-                    assert_cmpstr (package.author.name, CompareOperator.EQ, "vamp-dev");
-                    assert_cmpstr (package.author.email, CompareOperator.EQ, "vamp-dev@vamp.org");
-                    assert_cmpstr (package.author.url, CompareOperator.EQ, "https://vamp-dev.com");
+                    assert_full_config_author (package.author);
+                    assert_full_config_contributors (package.contributors);
 
                     Test.message ("Package dependencies: %s\n", package.dependencies["json-glib"]);
                     Test.message ("Package developer dependencies: %s\n", package.dev_dependencies["g-ir-compiler"]);
@@ -55,6 +53,40 @@ namespace Vamp {
             });
 
             return Test.run ();
+        }
+
+        private static void assert_full_config_contributors (Gee.List<Person> contributors) {
+            for (int i = 0; i < contributors.size; i++) {
+                Person contributor = contributors[i];
+                switch (i) {
+                    case 0:
+                        assert_cmpstr (contributor.name, CompareOperator.EQ, "vamp-dev-2");
+                        assert_cmpstr (contributor.email, CompareOperator.EQ, "vamp-dev-2@vamp.org");
+                        assert_cmpstr (contributor.url, CompareOperator.EQ, "https://vamp-dev-2.com");
+                        break;
+                    case 1:
+                        assert_cmpstr (contributor.name, CompareOperator.EQ, "vamp-dev-3");
+                        assert_cmpstr (contributor.email, CompareOperator.EQ, "vamp-dev-3@vamp.org");
+                        assert_cmpstr (contributor.url, CompareOperator.EQ, "https://vamp-dev-3.com");
+                        break;
+                }
+
+                if (i == contributors.size - 1 && i != 1) {
+                    Test.message ("Test failed! - Did not parse 2 contributors.\nParsed: %d contributor(s).", i + 1);
+                    Test.fail ();
+                }
+            }
+        }
+
+        private static void assert_full_config_author (Vamp.Person author) {
+            assert_cmpstr (author.name, CompareOperator.EQ, "vamp-dev");
+            assert_cmpstr (author.email, CompareOperator.EQ, "vamp-dev@vamp.org");
+            assert_cmpstr (author.url, CompareOperator.EQ, "https://vamp-dev.com");
+        }
+
+        private static void assert_full_config_bugs (Vamp.Bugs bugs) {
+            assert_cmpstr (bugs.email, CompareOperator.EQ, "bugs@test.com");
+            assert_cmpstr (bugs.url, CompareOperator.EQ, "https://www.notgithub.com/owner/project/issues");
         }
 
         private static Vamp.Package desrialise_package_config (string config_data) {
