@@ -43,6 +43,7 @@ namespace Vamp {
                     assert_cmpstr (package.license, GLib.CompareOperator.EQ, "MIT");
                     assert_full_config_author (package.author);
                     assert_full_config_contributors (package.contributors);
+                    assert_full_config_funding (package.funding);
 
                     Test.message ("Package dependencies: %s\n", package.dependencies["json-glib"]);
                     Test.message ("Package developer dependencies: %s\n", package.dev_dependencies["g-ir-compiler"]);
@@ -55,6 +56,25 @@ namespace Vamp {
             return Test.run ();
         }
 
+        private static void assert_full_config_funding (Gee.List<FundingInfo> funding) {
+            for (int i = 0; i < funding.size; i++) {
+                FundingInfo funding_info = funding[i];
+                switch (i) {
+                    case 0:
+                        assert_cmpstr (funding_info.funding_type, CompareOperator.EQ, "individual");
+                        assert_cmpstr (funding_info.url, CompareOperator.EQ, "https://www.vamp.com/donate");
+                        break;
+                }
+
+                if (i == funding.size - 1 && i != 0) {
+                    Test.message ("Test failed! - Did not parse 1 funding info item.\n"
+                        + "Parsed: %d parsing info item(s).", i + 1
+                    );
+
+                    Test.fail ();
+                }
+            }
+        }
         private static void assert_full_config_contributors (Gee.List<Person> contributors) {
             for (int i = 0; i < contributors.size; i++) {
                 Person contributor = contributors[i];

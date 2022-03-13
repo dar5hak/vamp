@@ -143,7 +143,21 @@ public class Vamp.Repository : Object {
 
     public static Repository from_json (Json.Node node) {
         assert (node.get_node_type () == OBJECT);
-        return (Repository) Json.gobject_deserialize (typeof (Repository), node);
+        var result = new Repository ();
+
+        var obj = node.get_object ();
+        obj.get_members ().foreach ((member_name) => {
+            switch (member_name) {
+                case "type":
+                    result.repository_type = obj.get_string_member (member_name);
+                    break;
+                default:
+                    result.set_property (member_name, obj.get_string_member (member_name));
+                    break;
+            }
+        });
+
+        return result;
     }
 
     public Json.Node to_json () {
@@ -163,7 +177,21 @@ public class Vamp.FundingInfo : Object {
 
     public static FundingInfo from_json (Json.Node node) {
         assert (node.get_node_type () == OBJECT);
-        return (FundingInfo) Json.gobject_deserialize (typeof (FundingInfo), node);
+        var result = new FundingInfo ();
+
+        var obj = node.get_object ();
+        obj.get_members ().foreach ((member_name) => {
+            switch (member_name) {
+                case "type":
+                    result.funding_type = obj.get_string_member (member_name);
+                    break;
+                default:
+                    result.set_property (member_name, obj.get_string_member (member_name));
+                    break;
+            }
+        });
+
+        return result;
     }
 
     public static Gee.List<FundingInfo> list_from_json (Json.Node node) {
