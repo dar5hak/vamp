@@ -1,7 +1,7 @@
 [CCode (cheader_filename = "config.h")]
 namespace TestConfig {
-	[CCode (cname = "TEST_PACKAGE_FILE")]
-	public const string TEST_PACKAGE_FILE;
+    [CCode (cname = "TEST_PACKAGE_FILE")]
+    public const string TEST_PACKAGE_FILE;
 
     [CCode (cname = "FULL_TEST_PACKAGE_FILE")]
     public const string FULL_TEST_PACKAGE_FILE;
