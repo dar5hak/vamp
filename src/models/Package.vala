@@ -182,6 +182,7 @@ public class Vamp.Package : Object, Json.Serializable {
                 }
 
                 return string_map_to_json (converted_value);
+
             default:
                 return default_serialize_property (
                     property_name,
