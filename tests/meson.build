@@ -1,4 +1,11 @@
+
 if get_option('tests')
+    configure_file (
+        input: 'config.vapi.in',
+        output: 'config.vapi',
+        copy: true
+    )
+
     conf = configuration_data()
     conf.set_quoted ('TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'vamp.json')
     conf.set_quoted ('FULL_TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'full-vamp.json')
@@ -6,8 +13,7 @@ if get_option('tests')
     conf.set_quoted ('FULL_EXPECTED_TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'expected-full-vamp.json')
 
     configure_file (
-        input: 'config.vapi.in',
-        output: 'config.vapi',
+        output: 'config.h',
         configuration: conf
     )
 
