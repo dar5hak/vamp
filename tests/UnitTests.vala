@@ -6,11 +6,7 @@ namespace Vamp {
             Test.add_func ("/vamp/deserialize_basic_config", () => {
                 string package_contents;
                 try {
-                    bool did_open = FileUtils.get_contents (TestConfig.TEST_PACKAGE_FILE, out package_contents);
-                    if (!did_open) {
-                        error ("Failed to get contents from: %s".printf (TestConfig.TEST_PACKAGE_FILE));
-                    }
-
+                    FileUtils.get_contents (TestConfig.TEST_PACKAGE_FILE, out package_contents);
                     Vamp.Package package = deserialize_package_config (package_contents);
                     assert (package.name == "test-project");
                     assert (package.version == "0.0.1");
@@ -23,11 +19,7 @@ namespace Vamp {
             Test.add_func ("/vamp/deserialize_full_config", () => {
                 string package_contents;
                 try {
-                    bool did_open = FileUtils.get_contents (TestConfig.FULL_TEST_PACKAGE_FILE, out package_contents);
-                    if (!did_open) {
-                        error ("Failed to get contents from: %s".printf (TestConfig.FULL_TEST_PACKAGE_FILE));
-                    }
-
+                    FileUtils.get_contents (TestConfig.FULL_TEST_PACKAGE_FILE, out package_contents);
                     Vamp.Package package = deserialize_package_config (package_contents);
                     assert (package.name == "test-project");
                     assert (package.version == "0.0.1");
@@ -70,13 +62,9 @@ namespace Vamp {
 
                 try {
                     string expected_content;
-                    bool did_open = FileUtils.get_contents (TestConfig.BASIC_EXPECTED_TEST_PACKAGE_FILE,
+                    FileUtils.get_contents (TestConfig.BASIC_EXPECTED_TEST_PACKAGE_FILE,
                         out expected_content
                     );
-
-                    if (!did_open) {
-                        error ("Failed to get contents from: %s".printf (TestConfig.BASIC_EXPECTED_TEST_PACKAGE_FILE));
-                    }
 
                     assert (generator.to_data (null) == expected_content);
 
@@ -150,16 +138,11 @@ namespace Vamp {
                 generator.set_root (package.to_json ());
                 try {
                     string expected_content;
-                    bool did_open = FileUtils.get_contents (TestConfig.FULL_EXPECTED_TEST_PACKAGE_FILE,
+                    FileUtils.get_contents (TestConfig.FULL_EXPECTED_TEST_PACKAGE_FILE,
                         out expected_content
                     );
 
-                    if (!did_open) {
-                        error ("Failed to get contents from: %s".printf (TestConfig.FULL_EXPECTED_TEST_PACKAGE_FILE));
-                    }
-
                     assert (generator.to_data (null) == expected_content);
-
                 } catch (Error e) {
                     error (e.message);
                 }
@@ -204,6 +187,7 @@ namespace Vamp {
                 }
             }
         }
+
         private static void assert_full_config_contributors (Gee.List<Person> contributors) {
             for (int i = 0; i < contributors.size; i++) {
                 Person contributor = contributors[i];
