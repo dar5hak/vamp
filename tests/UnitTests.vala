@@ -55,15 +55,19 @@ namespace Vamp {
             });
 
             Test.add_func ("/vamp/serialize_basic_config", () => {
-                Vamp.Package package = new Vamp.Package ();
-                package.name = "basic-project";
-                package.version = "1.0.0";
-                package.description = "A basic project";
+                Vamp.Package package = new Vamp.Package () {
+                    name = "basic-project",
+                    version = "1.0.0",
+                    description = "A basic project",
+                };
 
-                var generator = new Json.Generator ();
-                generator.pretty = true;
-                generator.indent = 4;
+                var generator = new Json.Generator () {
+                    pretty = true,
+                    indent = 4,
+                };
+
                 generator.set_root (package.to_json ());
+
                 try {
                     string expected_content;
                     bool did_open = FileUtils.get_contents (TestConfig.BASIC_EXPECTED_TEST_PACKAGE_FILE,
@@ -82,52 +86,48 @@ namespace Vamp {
             });
 
             Test.add_func ("/vamp/serialize_full_config", () => {
-                Vamp.Package package = new Vamp.Package ();
-                package.name = "full-project";
-                package.version = "1.0.0";
-                package.description = "A full project";
-                package.keywords = new Gee.ArrayList<string>.wrap ({"full", "project"});
-                package.homepage = "https://www.full-project.com";
-                package.bugs = new Bugs () {
-                    url = "https://www.full-project.com/bugs",
-                    email = "bugs@full-project.com"
-                };
-
-                package.license = "MIT";
-                package.author = new Person () {
-                    name = "vamp-dev",
-                    email = "vamp-dev@vamp.org",
-                    url = "https://www.vamp-dev.com"
-                };
-
-                package.contributors = new Gee.ArrayList<Person>.wrap ({
-                    new Person () {
-                        name = "vamp-dev-2",
-                        email = "vamp-dev-2@vamp.org",
-                        url = "https://www.vamp-dev-2.com"
+                Vamp.Package package = new Vamp.Package () {
+                    name = "full-project",
+                    version = "1.0.0",
+                    description = "A full project",
+                    keywords = new Gee.ArrayList<string>.wrap ({"full", "project"}),
+                    homepage = "https://www.full-project.com",
+                    bugs = new Bugs () {
+                        url = "https://www.full-project.com/bugs",
+                        email = "bugs@full-project.com"
                     },
-                    new Person () {
-                        name = "vamp-dev-3",
-                        email = "vamp-dev-3@vamp.org",
-                        url = "https://www.vamp-dev-3.com"
+                    license = "MIT",
+                    author = new Person () {
+                        name = "vamp-dev",
+                        email = "vamp-dev@vamp.org",
+                        url = "https://www.vamp-dev.com"
                     },
-                });
-
-                package.funding = new Gee.ArrayList<FundingInfo>.wrap ({
-                    new FundingInfo () {
-                        funding_type = "individual",
-                        url = "https://www.vamp.com/donate"
-                    }
-                });
-
-                package.files = new Gee.ArrayList<string>.wrap ({
-                    "./main-module/**/*",
-                    "./extra-module/**/*"
-                });
-
-                package.repository = new Repository () {
-                    repository_type = "git",
-                    url = "https://www.notgithub.com/owner/project"
+                    contributors = new Gee.ArrayList<Person>.wrap ({
+                        new Person () {
+                            name = "vamp-dev-2",
+                            email = "vamp-dev-2@vamp.org",
+                            url = "https://www.vamp-dev-2.com"
+                        },
+                        new Person () {
+                            name = "vamp-dev-3",
+                            email = "vamp-dev-3@vamp.org",
+                            url = "https://www.vamp-dev-3.com"
+                        },
+                    }),
+                    funding = new Gee.ArrayList<FundingInfo>.wrap ({
+                        new FundingInfo () {
+                            funding_type = "individual",
+                            url = "https://www.vamp.com/donate"
+                        }
+                    }),
+                    files = new Gee.ArrayList<string>.wrap ({
+                        "./main-module/**/*",
+                        "./extra-module/**/*"
+                    }),
+                    repository = new Repository () {
+                        repository_type = "git",
+                        url = "https://www.notgithub.com/owner/project"
+                    },
                 };
 
                 var dependencies = new Gee.HashMap<string, string> ();
@@ -142,9 +142,11 @@ namespace Vamp {
                 optional_dependencies["valadoc"] = "^0.56.0";
                 package.optional_dependencies = optional_dependencies;
 
-                var generator = new Json.Generator ();
-                generator.pretty = true;
-                generator.indent = 4;
+                var generator = new Json.Generator () {
+                    pretty = true,
+                    indent = 4,
+                };
+
                 generator.set_root (package.to_json ());
                 try {
                     string expected_content;
