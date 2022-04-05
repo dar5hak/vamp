@@ -12,6 +12,7 @@ public class Vamp.FundingInfo : Object {
                 case "type":
                     result.funding_type = obj.get_string_member (member_name);
                     break;
+
                 default:
                     result.set_property (member_name, obj.get_string_member (member_name));
                     break;
