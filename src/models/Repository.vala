@@ -26,7 +26,6 @@ public class Vamp.Repository : Object {
     public Json.Node to_json () {
         var obj = new Json.Object ();
 
-
         if (this.repository_type != null) {
             obj.set_string_member ("type", this.repository_type);
         }
