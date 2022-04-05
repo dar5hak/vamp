@@ -15,5 +15,5 @@ tab_width = 4
 tab_width = 2
 
 # Don't insert new line in test asset files.
-[/tests/assets/*]
+[/vamp/tests/assets/*]
 insert_final_newline = false
