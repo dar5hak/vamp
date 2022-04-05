@@ -6,15 +6,14 @@ if get_option('tests')
         copy: true
     )
 
-    conf = configuration_data()
-    conf.set_quoted ('TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'vamp.json')
-    conf.set_quoted ('FULL_TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'full-vamp.json')
-    conf.set_quoted ('BASIC_EXPECTED_TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'expected-basic-vamp.json')
-    conf.set_quoted ('FULL_EXPECTED_TEST_PACKAGE_FILE', meson.current_source_dir() / 'assets' / 'expected-full-vamp.json')
-
     configure_file (
         output: 'config.h',
-        configuration: conf
+        configuration: {
+            'TEST_PACKAGE_FILE': '"' + meson.current_source_dir() / 'assets' / 'vamp.json' + '"',
+            'FULL_TEST_PACKAGE_FILE': '"' + meson.current_source_dir() / 'assets' / 'full-vamp.json' + '"',
+            'BASIC_EXPECTED_TEST_PACKAGE_FILE': '"' + meson.current_source_dir() / 'assets' / 'expected-basic-vamp.json' + '"',
+            'FULL_EXPECTED_TEST_PACKAGE_FILE': '"' + meson.current_source_dir() / 'assets' / 'expected-full-vamp.json' + '"',
+        }
     )
 
     vala_args = [
