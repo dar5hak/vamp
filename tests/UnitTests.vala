@@ -11,7 +11,7 @@ namespace Vamp {
                         error ("Failed to get contents from: %s".printf (TestConfig.TEST_PACKAGE_FILE));
                     }
 
-                    Vamp.Package package = desrialise_package_config (package_contents);
+                    Vamp.Package package = deserialize_package_config (package_contents);
                     assert (package.name == "test-project");
                     assert (package.version == "0.0.1");
                     assert (package.description == "A Test Project");
@@ -28,7 +28,7 @@ namespace Vamp {
                         error ("Failed to get contents from: %s".printf (TestConfig.FULL_TEST_PACKAGE_FILE));
                     }
 
-                    Vamp.Package package = desrialise_package_config (package_contents);
+                    Vamp.Package package = deserialize_package_config (package_contents);
                     assert (package.name == "test-project");
                     assert (package.version == "0.0.1");
                     assert (package.description == "A Test Project");
@@ -238,7 +238,7 @@ namespace Vamp {
             assert (bugs.url == "https://www.notgithub.com/owner/project/issues");
         }
 
-        private static Vamp.Package desrialise_package_config (string config_data) {
+        private static Vamp.Package deserialize_package_config (string config_data) {
             var parser = new Json.Parser ();
             try {
                 parser.load_from_data (config_data);
