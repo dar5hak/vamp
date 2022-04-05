@@ -14,11 +14,6 @@ tab_width = 4
 [{*.html,*.xml,*.xml.in,*.yml}]
 tab_width = 2
 
-# Ignore test assets (These files need to remain unformatted)
+# Don't insert new line in test asset files.
 [/tests/assets/*]
-charset = unset
-end_of_line = unset
-indent_size = unset
-indent_style = unset
-insert_final_newline = unset
-tab_width = unset
+insert_final_newline = false
