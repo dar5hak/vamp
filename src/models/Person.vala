@@ -63,7 +63,7 @@ public class Vamp.Person : Object {
         return Json.gobject_serialize (this);
     }
 
-    public bool equals (Vamp.Person other) {
+    public bool equal (Vamp.Person other) {
         return this.name == other.name
             && this.email == other.email
             && this.url == other.url;

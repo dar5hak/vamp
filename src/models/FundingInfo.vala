@@ -67,7 +67,7 @@ public class Vamp.FundingInfo : Object {
         return result;
     }
 
-    public bool equals (Vamp.FundingInfo other) {
+    public bool equal (Vamp.FundingInfo other) {
         return this.funding_type == other.funding_type
             && this.url == other.url;
     }

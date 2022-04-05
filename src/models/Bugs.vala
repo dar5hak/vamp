@@ -11,7 +11,7 @@ public class Vamp.Bugs : GLib.Object {
         return Json.gobject_serialize (this);
     }
 
-    public bool equals (Vamp.Bugs other) {
+    public bool equal (Vamp.Bugs other) {
         return this.url == other.url
             && this.email == other.email;
     }
