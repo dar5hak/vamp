@@ -40,7 +40,7 @@ public class Vamp.Repository : Object {
         return result;
     }
 
-    public bool equals (Vamp.Repository other) {
+    public bool equal (Vamp.Repository other) {
         return this.repository_type == other.repository_type
             && this.url == other.url
             && this.directory == other.directory;
