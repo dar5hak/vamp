@@ -13,6 +13,7 @@ public class Vamp.Repository : Object {
                 case "type":
                     result.repository_type = obj.get_string_member (member_name);
                     break;
+
                 default:
                     result.set_property (member_name, obj.get_string_member (member_name));
                     break;

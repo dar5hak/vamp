@@ -147,6 +147,7 @@ public class Vamp.Package : Object, Json.Serializable {
                 }
 
                 return string_list_to_json (converted_value);
+
             case "contributors":
                 Gee.List<Person> converted_value = (Gee.List<Person>)value_to_serialize.get_object ();
                 if (converted_value == null) {
