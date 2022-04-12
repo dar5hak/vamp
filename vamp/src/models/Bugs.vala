@@ -3,7 +3,7 @@ public class Vamp.Bugs : GLib.Object {
     public string email { get; set; }
 
     public static Bugs from_json (Json.Node node) {
-        assert (node.get_node_type () == OBJECT);
+        assert (node.get_node_type () == Json.NodeType.OBJECT);
         return (Bugs) Json.gobject_deserialize (typeof (Bugs), node);
     }
 

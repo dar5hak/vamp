@@ -3,7 +3,7 @@ public class Vamp.FundingInfo : Object {
     public string url { get; set; }
 
     public static FundingInfo from_json (Json.Node node) {
-        assert (node.get_node_type () == OBJECT);
+        assert (node.get_node_type () == Json.NodeType.OBJECT);
         var result = new FundingInfo ();
 
         var obj = node.get_object ();
@@ -23,13 +23,13 @@ public class Vamp.FundingInfo : Object {
     }
 
     public static Gee.List<FundingInfo> list_from_json (Json.Node node) {
-        assert (node.get_node_type () == ARRAY);
+        assert (node.get_node_type () == Json.NodeType.ARRAY);
 
         var array = node.get_array ();
         var result = new Gee.ArrayList<FundingInfo> ();
 
         array.foreach_element ((_, __, element_node) => {
-            if (element_node.get_node_type () != OBJECT) {
+            if (element_node.get_node_type () != Json.NodeType.OBJECT) {
                 return;
             }
 

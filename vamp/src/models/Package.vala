@@ -16,7 +16,7 @@ public class Vamp.Package : Object, Json.Serializable {
     public Gee.Map<string, string> optional_dependencies { get; set; }
 
     public static Package from_json (Json.Node node) {
-        assert (node.get_node_type () == OBJECT);
+        assert (node.get_node_type () == Json.NodeType.OBJECT);
         return (Package) Json.gobject_deserialize (typeof (Package), node);
     }
 
@@ -32,7 +32,7 @@ public class Vamp.Package : Object, Json.Serializable {
     ) {
         switch (property_name) {
             case "keywords":
-                if (property_node.get_node_type () != ARRAY) {
+                if (property_node.get_node_type () != Json.NodeType.ARRAY) {
                     @value = {};
                     return false;
                 }
@@ -42,7 +42,7 @@ public class Vamp.Package : Object, Json.Serializable {
                 return true;
 
             case "bugs":
-                if (property_node.get_node_type () == OBJECT) {
+                if (property_node.get_node_type () == Json.NodeType.OBJECT) {
                     @value = Bugs.from_json (property_node);
                     return true;
                 }
@@ -59,7 +59,7 @@ public class Vamp.Package : Object, Json.Serializable {
                 return true;
 
             case "author":
-                if (property_node.get_node_type () == OBJECT) {
+                if (property_node.get_node_type () == Json.NodeType.OBJECT) {
                     @value = Person.from_json (property_node);
                     return true;
                 }
@@ -72,7 +72,7 @@ public class Vamp.Package : Object, Json.Serializable {
                 return Person.try_parse (property_node.get_string (), out @value);
 
             case "contributors":
-                if (property_node.get_node_type () != ARRAY) {
+                if (property_node.get_node_type () != Json.NodeType.ARRAY) {
                     @value = {};
                     return false;
                 }
@@ -82,7 +82,7 @@ public class Vamp.Package : Object, Json.Serializable {
                 return true;
 
             case "funding":
-                if (property_node.get_node_type () != ARRAY) {
+                if (property_node.get_node_type () != Json.NodeType.ARRAY) {
                     @value = {};
                     return false;
                 }
@@ -92,7 +92,7 @@ public class Vamp.Package : Object, Json.Serializable {
                 return true;
 
             case "files":
-                if (property_node.get_node_type () != ARRAY) {
+                if (property_node.get_node_type () != Json.NodeType.ARRAY) {
                     @value = {};
                     return false;
                 }
@@ -102,7 +102,7 @@ public class Vamp.Package : Object, Json.Serializable {
                 return true;
 
             case "repository":
-                if (property_node.get_node_type () != OBJECT) {
+                if (property_node.get_node_type () != Json.NodeType.OBJECT) {
                     @value = {};
                     return false;
                 }
@@ -114,7 +114,7 @@ public class Vamp.Package : Object, Json.Serializable {
             case "dependencies":
             case "dev-dependencies":
             case "optional-dependencies":
-                if (property_node.get_node_type () != OBJECT) {
+                if (property_node.get_node_type () != Json.NodeType.OBJECT) {
                     @value = {};
                     return false;
                 }
@@ -208,7 +208,7 @@ Json.Node string_list_to_json (Gee.List<string> list) {
 }
 
 Gee.List<string> string_list_from_json (Json.Node node) {
-    assert (node.get_node_type () == ARRAY);
+    assert (node.get_node_type () == Json.NodeType.ARRAY);
 
     var array = node.get_array ();
     var result = new Gee.ArrayList<string> ();
@@ -239,7 +239,7 @@ Json.Node string_map_to_json (Gee.Map<string, string> map) {
 }
 
 Gee.Map<string, string> string_map_from_json (Json.Node node) {
-    assert (node.get_node_type () == OBJECT);
+    assert (node.get_node_type () == Json.NodeType.OBJECT);
 
     var result = new Gee.HashMap<string, string> ();
 
