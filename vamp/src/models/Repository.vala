@@ -4,7 +4,7 @@ public class Vamp.Repository : Object {
     public string directory { get; set; }
 
     public static Repository from_json (Json.Node node) {
-        assert (node.get_node_type () == OBJECT);
+        assert (node.get_node_type () == Json.NodeType.OBJECT);
         var result = new Repository ();
 
         var obj = node.get_object ();

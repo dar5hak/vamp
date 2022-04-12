@@ -6,18 +6,18 @@ public class Vamp.Person : Object {
     public string url { get; set; }
 
     public static Person from_json (Json.Node node) {
-        assert (node.get_node_type () == OBJECT);
+        assert (node.get_node_type () == Json.NodeType.OBJECT);
         return (Person) Json.gobject_deserialize (typeof (Person), node);
     }
 
     public static Gee.List<Person> list_from_json (Json.Node node) {
-        assert (node.get_node_type () == ARRAY);
+        assert (node.get_node_type () == Json.NodeType.ARRAY);
 
         var array = node.get_array ();
         var result = new Gee.ArrayList<Person> ();
 
         array.foreach_element ((_, __, element_node) => {
-            if (element_node.get_node_type () != OBJECT) {
+            if (element_node.get_node_type () != Json.NodeType.OBJECT) {
                 return;
             }
 
